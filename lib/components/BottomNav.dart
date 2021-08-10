@@ -39,16 +39,19 @@ class _BottomNavState extends State<BottomNav> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.green,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(
+              Icons.home,
+            ),
+            label: 'Rent',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.electric_bike,
             ),
-            label: 'Snaprides',
+            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Text(
@@ -61,17 +64,16 @@ class _BottomNavState extends State<BottomNav> {
                 fontSize: 24,
               ),
             ),
-            label: 'Tariff',
+            label: 'Help',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.location_pin,
             ),
-            label: 'Location',
+            label: 'More',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.black54,
         onTap: _onItemTapped,
       ),

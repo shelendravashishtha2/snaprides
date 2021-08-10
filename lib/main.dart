@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           title: 'Snaprides',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.orange,
+            primarySwatch: Colors.green,
           ),
           home: auth.isAuth
               ? BottomNav()

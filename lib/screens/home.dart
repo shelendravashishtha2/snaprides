@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:snaprides/components/DrawerWidget.dart';
+import 'package:snaprides/components/HomePageContainer.dart';
+import 'package:snaprides/components/HomePageIcon.dart';
+import 'package:snaprides/screens/SelectCities.dart';
 import 'package:snaprides/screens/login.dart';
 import 'package:snaprides/screens/signupLogin.dart';
 import 'package:snaprides/services/auth.dart';
@@ -25,286 +30,194 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            children: [
-              if (!isAuthenticated)
-                ListTile(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return SignUpLogin();
-                    }));
-                  },
-                  contentPadding: EdgeInsets.all(
-                    12,
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+          drawer: DrawerWidget(
+              isAuthenticated: isAuthenticated, userDetails: userDetails),
+          backgroundColor: Colors.black,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 10.0,
                   ),
-                  leading: CircleAvatar(
-                    radius: 50,
-                    child: Icon(
-                      Icons.person,
-                      size: 30,
+                  HomePageIcon(
+                    height: 35.0,
+                    labelText: 'BENGALURU',
+                    padding: 8,
+                    widthRatio: 0.372,
+                    suffIcon: Transform.translate(
+                      offset: Offset(0, -1),
+                      child: Icon(
+                        FontAwesomeIcons.angleDown,
+                        color: Colors.white,
+                        size: 15.0,
+                      ),
+                    ),
+                    boxDecoration: BoxDecoration(
+                      color: Color(0xFF161616),
+                      border: Border.all(color: Colors.grey, width: 1),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    labelStyle: TextStyle(color: Colors.white, fontSize: 14.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Rent a Motorcycle',
+                          style: TextStyle(fontSize: 22.0, color: Colors.white),
+                        )
+                      ],
                     ),
                   ),
-                  title: Text(
-                    'Login Or Signup',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Select a Date & Time',
+                          style: TextStyle(
+                              fontSize: 14.0, color: Colors.grey[300]),
+                        )
+                      ],
                     ),
                   ),
-                )
-              else
-                ListTile(
-                  onTap: () {},
-                  contentPadding: EdgeInsets.all(
-                    12,
-                  ),
-                  leading: CircleAvatar(
-                    radius: 50,
-                    child: Icon(
-                      Icons.person,
-                      size: 30,
-                    ),
-                  ),
-                  title: Text(
-                    userDetails['name'],
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              if (isAuthenticated)
-                IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      await Auth().logout();
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => SignUpLogin(),
-                        ),
-                      );
-                    }),
-            ],
-          ),
-        ),
-      ),
-      appBar: AppBar(
-        title: Text('Home'),
-        actions: [],
-      ),
-      body: Container(
-        padding: EdgeInsets.all(
-          6,
-        ),
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Search Your Ride',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Pickup',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 45,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: Material(
-                              elevation: 5,
-                              color: Colors.white,
-                              shadowColor: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                  8,
-                                ),
-                                child: TextFormField(
-                                  enabled: false,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: 'Select Date',
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                    ),
-                                    labelStyle: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
+                            child: Text(
+                              'Start Date',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.grey[400],
                               ),
                             ),
                           ),
                           Container(
-                            height: 45,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: Material(
-                              elevation: 5,
-                              color: Colors.white,
-                              shadowColor: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                  8,
-                                ),
-                                child: TextFormField(
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: 'Select Time',
-                                    prefixIcon: Icon(
-                                      Icons.access_time,
-                                    ),
-                                    labelStyle: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            height: 45.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF161616),
+                              border: Border.all(color: Colors.grey, width: 1),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                          ),
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.calendar_today_outlined,
+                                  color: Colors.grey[300],
+                                  size: 14.0,
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Text(
+                                  '10 Aug - 04:00 pm',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.angleDown,
+                                  color: Colors.white,
+                                  size: 14.0,
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Drop Off',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 45,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: Material(
-                              elevation: 5,
-                              color: Colors.white,
-                              shadowColor: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                  8,
-                                ),
-                                child: TextFormField(
-                                  enabled: false,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: 'Select Date',
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                    ),
-                                    labelStyle: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
+                            child: Text(
+                              'End Date',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.grey[400],
                               ),
                             ),
                           ),
                           Container(
-                            height: 45,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: Material(
-                              elevation: 5,
-                              color: Colors.white,
-                              shadowColor: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                  8,
-                                ),
-                                child: TextFormField(
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: 'Select Time',
-                                    prefixIcon: Icon(
-                                      Icons.access_time,
-                                    ),
-                                    labelStyle: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            height: 45.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF161616),
+                              border: Border.all(color: Colors.grey, width: 1),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                          ),
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.calendar_today_outlined,
+                                  color: Colors.grey[300],
+                                  size: 14.0,
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Text(
+                                  '10 Aug - 04:00 pm',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.angleDown,
+                                  color: Colors.white,
+                                  size: 14.0,
+                                )
+                              ],
+                            ),
+                          )
                         ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      // Center(
-                      //     child: roundedRectButton('Search', context, () {})),
+                      )
                     ],
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.all(13.0),
+                  ),
+                  ListView(
+                    shrinkWrap: true,
+                    primary: false,
+                    children: [
+                      HomeActiveContainer(
+                        width: width,
+                      ),
+                      HomeInactiveContainer(
+                        width: width,
+                      )
+                    ],
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
+          )),
     );
   }
 }
