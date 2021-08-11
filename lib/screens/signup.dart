@@ -240,7 +240,19 @@ class _SignUpState extends State<SignUp> {
               SocialButton(
                 'Sign up with Google',
                 'assets/images/google.jpeg',
-                () {},
+                () async {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return loadingDialog('Signing In With Google');
+                      });
+                  try {
+                    await Provider.of<Auth>(context, listen: false)
+                        .signInWithGoogle(context);
+                  } catch (e) {}
+                  Navigator.of(context).pop();
+                },
               ),
               SocialButton(
                 'Sign up with Facebook',

@@ -34,8 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-          drawer: DrawerWidget(
-              isAuthenticated: isAuthenticated, userDetails: userDetails),
+          drawer: DrawerWidget(userDetails: userDetails),
           backgroundColor: Colors.black,
           body: SingleChildScrollView(
             child: Padding(

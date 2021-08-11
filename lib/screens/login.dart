@@ -135,7 +135,23 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                   onPressed: () async {
-                    if (_formKey.currentState.validate() == true) {}
+                    if (_formKey.currentState.validate() == true) {
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return loadingDialog('Sending OTP');
+                          });
+                      bool success =
+                          await Provider.of<Auth>(context, listen: false)
+                              .logInPhone({
+                        'phone': countryDialCode + _phoneController.text,
+                        'password': _passwordController.text,
+                      }, true, context);
+                      if (!success) {
+                        Navigator.of(context).pop();
+                      }
+                    }
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
@@ -160,13 +176,62 @@ class _LoginState extends State<Login> {
               SocialButton(
                 'Sign in with Google',
                 'assets/images/google.jpeg',
-                () {},
+                () async {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return loadingDialog('Signing In With Google');
+                      });
+                  try {
+                    await Provider.of<Auth>(context, listen: false)
+                        .signInWithGoogle(context);
+                  } catch (e) {}
+
+                  Navigator.of(context).pop();
+                },
               ),
               SocialButton(
                 'Sign in with Facebook',
                 'assets/images/facebook.png',
                 () {},
               ),
+              SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'New to Snaprides? ',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Login(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

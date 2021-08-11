@@ -6,8 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snaprides/components/BottomNav.dart';
 import 'package:snaprides/screens/verifyOtp.dart';
 import 'package:snaprides/services/userDetails.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Auth with ChangeNotifier {
   String _userId;
@@ -15,8 +17,10 @@ class Auth with ChangeNotifier {
   String smsCode;
   int resendToken;
   String verificationId;
+  String loginType;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   bool get isAuth {
     return isAuthenticated;
@@ -37,9 +41,11 @@ class Auth with ChangeNotifier {
   Future<bool> tryAutoLogin() async {
     User user = await getUser();
     if (user != null) {
+      isAuthenticated = true;
+
       return true;
     } else {
-      await _auth.signInAnonymously();
+      // await _auth.signInAnonymously();
       return false;
     }
   }
@@ -64,6 +70,13 @@ class Auth with ChangeNotifier {
           .signInWithCredential(credential)
           .then((UserCredential result) async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottomNav(),
+          ),
+        );
         Provider.of<Auth>(context, listen: false).isAuthenticated = true;
         notifyListeners();
       });
@@ -140,5 +153,23 @@ class Auth with ChangeNotifier {
     } catch (e) {
       throw e;
     }
+  }
+
+  Future signInWithGoogle(BuildContext context) async {
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    _verificationComplete(credential, context);
+  }
+
+  void signOutGoogle() async {
+    await _googleSignIn.signOut();
+    print("User Sign Out");
   }
 }

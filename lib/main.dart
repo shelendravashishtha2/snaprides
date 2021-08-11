@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:snaprides/components/BottomNav.dart';
 import 'package:snaprides/screens/home.dart';
 import 'package:snaprides/screens/login.dart';
+import 'package:snaprides/screens/signup.dart';
 import 'package:snaprides/screens/splash.dart';
 import 'package:snaprides/services/auth.dart';
 import 'package:snaprides/services/userDetails.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
                       snapshot.connectionState == ConnectionState.waiting
                           ? SplashScreen()
                           : snapshot.data == false
-                              ? Login()
+                              ? SignUp()
                               : BottomNav(),
                 ),
           routes: {

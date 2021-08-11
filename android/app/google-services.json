@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "200280620044-pbm5kjbce2f3dpb8665rnllufhah7u51.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.snaprides",
-            "certificate_hash": "a5ef56c9bbe59418b7864cff034377ac5aed6250"
-          }
-        },
-        {
           "client_id": "200280620044-lkg0khca5j643cjkn8ci55rldspproft.apps.googleusercontent.com",
           "client_type": 3
         }
