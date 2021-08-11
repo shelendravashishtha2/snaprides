@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:snaprides/components/DrawerWidget.dart';
 import 'package:snaprides/components/HomePageContainer.dart';
 import 'package:snaprides/components/HomePageIcon.dart';
-import 'package:snaprides/screens/SelectCities.dart';
+import 'package:snaprides/screens/selectCities.dart';
 import 'package:snaprides/screens/login.dart';
 import 'package:snaprides/screens/signupLogin.dart';
 import 'package:snaprides/services/auth.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:snaprides/screens/SelectCities.dart';
+import 'package:snaprides/screens/selectCities.dart';
+import 'package:snaprides/screens/signup.dart';
 import 'package:snaprides/screens/signupLogin.dart';
 import 'package:snaprides/services/auth.dart';
 
@@ -24,7 +25,7 @@ class DrawerWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return SignUpLogin();
+                    return SignUp();
                   }));
                 },
                 contentPadding: EdgeInsets.all(

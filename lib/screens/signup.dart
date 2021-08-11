@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:snaprides/components/socialButton.dart';
 import 'package:snaprides/constants/constants.dart';
 import 'package:snaprides/services/auth.dart';
+import '../constants/constants.dart';
+import 'login.dart';
+import 'login.dart';
+import 'login.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -12,7 +17,6 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _phoneController = TextEditingController();
   final _nameController = TextEditingController();
-  final _codeController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _loading = false;
@@ -22,16 +26,38 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        color: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 2,
+                ),
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
               TextFormField(
                 controller: _nameController,
+                style: TextStyle(color: Colors.white),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter name';
@@ -44,115 +70,49 @@ class _SignUpState extends State<SignUp> {
                     8,
                   ),
                   labelText: 'Name as per Aadhaar/Passport',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black45,
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black26,
-                      width: 2.5,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black54,
-                      width: 2.5,
-                    ),
-                  ),
+                  labelStyle: labelStyle,
+                  enabledBorder: textFieldBorder,
+                  focusedBorder: textFieldBorder,
+                  errorStyle: errorStyle,
+                  errorBorder: errorBorder,
+                  focusedErrorBorder: errorBorder,
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: 55,
-                    child: TextFormField(
-                      initialValue: '+91',
-                      enabled: false,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(
-                          8,
-                        ),
-                        labelText: 'Code',
-                        labelStyle: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black45,
-                        ),
-                        disabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black26,
-                            width: 2.5,
-                          ),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black26,
-                            width: 2.5,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black54,
-                            width: 2.5,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _phoneController,
-                      inputFormatters: [
-                        new LengthLimitingTextInputFormatter(10),
-                      ],
-                      validator: (value) {
-                        if (value.isEmpty || value.length != 10) {
-                          return 'Please enter a valid phone number';
-                        } else {
-                          return null;
-                        }
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(
-                          8,
-                        ),
-                        labelText: 'Phone Number as per Aadhaar',
-                        labelStyle: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black45,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black26,
-                            width: 2.5,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black54,
-                            width: 2.5,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+              TextFormField(
+                controller: _phoneController,
+                style: TextStyle(color: Colors.white),
+                inputFormatters: [
+                  new LengthLimitingTextInputFormatter(10),
                 ],
+                validator: (value) {
+                  if (value.isEmpty || value.length != 10) {
+                    return 'Please enter a valid phone number';
+                  } else {
+                    return null;
+                  }
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(
+                    8,
+                  ),
+                  labelText: 'Phone Number as per Aadhaar',
+                  labelStyle: labelStyle,
+                  errorStyle: errorStyle,
+                  enabledBorder: textFieldBorder,
+                  focusedBorder: textFieldBorder,
+                  errorBorder: errorBorder,
+                  focusedErrorBorder: errorBorder,
+                ),
               ),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
                 controller: _emailController,
+                style: TextStyle(color: Colors.white),
                 validator: (value) {
                   Pattern pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -170,23 +130,12 @@ class _SignUpState extends State<SignUp> {
                     8,
                   ),
                   labelText: 'Email address',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black45,
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black26,
-                      width: 2.5,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black54,
-                      width: 2.5,
-                    ),
-                  ),
+                  labelStyle: labelStyle,
+                  errorStyle: errorStyle,
+                  enabledBorder: textFieldBorder,
+                  focusedBorder: textFieldBorder,
+                  errorBorder: errorBorder,
+                  focusedErrorBorder: errorBorder,
                 ),
               ),
               SizedBox(
@@ -194,6 +143,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextFormField(
                 controller: _passwordController,
+                style: TextStyle(color: Colors.white),
                 obscureText: !showPassword,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -218,23 +168,12 @@ class _SignUpState extends State<SignUp> {
                     8,
                   ),
                   labelText: 'Password',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black45,
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black26,
-                      width: 2.5,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black54,
-                      width: 2.5,
-                    ),
-                  ),
+                  labelStyle: labelStyle,
+                  errorStyle: errorStyle,
+                  enabledBorder: textFieldBorder,
+                  focusedBorder: textFieldBorder,
+                  errorBorder: errorBorder,
+                  focusedErrorBorder: errorBorder,
                 ),
               ),
               SizedBox(
@@ -253,7 +192,7 @@ class _SignUpState extends State<SignUp> {
                       : Text(
                           "Sign Up",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 19,
                           ),
                         ),
@@ -298,6 +237,52 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               SizedBox(height: 40),
+              SocialButton(
+                'Sign up with Google',
+                'assets/images/google.jpeg',
+                () {},
+              ),
+              SocialButton(
+                'Sign up with Facebook',
+                'assets/images/facebook.png',
+                () {},
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account? ',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Login(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Log in',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

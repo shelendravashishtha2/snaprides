@@ -38,3 +38,35 @@ Widget invalidOtpDialog(BuildContext context) {
     ],
   );
 }
+
+// Text Field Constants
+
+var errorBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: Colors.red[200],
+    width: 2,
+  ),
+  borderRadius: BorderRadius.circular(
+    12,
+  ),
+);
+
+var textFieldBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: Colors.white70,
+    width: 2,
+  ),
+  borderRadius: BorderRadius.circular(
+    12,
+  ),
+);
+
+var labelStyle = TextStyle(
+  fontSize: 15,
+  fontWeight: FontWeight.w700,
+  color: Colors.white70,
+);
+
+var errorStyle = TextStyle(
+  color: Colors.red[100],
+);
