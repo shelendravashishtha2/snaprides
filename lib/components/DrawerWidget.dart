@@ -81,16 +81,6 @@ class DrawerWidget extends StatelessWidget {
                       ),
                     );
                   }),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SelectCity(),
-                    ),
-                  );
-                },
-                child: Text('select city'))
           ],
         ),
       ),

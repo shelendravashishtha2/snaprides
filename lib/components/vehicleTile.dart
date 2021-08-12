@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HomeActiveContainer extends StatelessWidget {
-  const HomeActiveContainer({
+class VehicleTile extends StatelessWidget {
+  const VehicleTile({
     Key key,
     @required this.width,
   }) : super(key: key);
@@ -11,102 +11,103 @@ class HomeActiveContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        height: 120.0,
-        width: width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(
-            14.0,
-          ),
+    return Container(
+      height: 120.0,
+      width: width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 4,
+        vertical: 8,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(
+          12.0,
         ),
-        padding: EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 90.0,
-              width: width / 3.5,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/bike.jpg',
-                  ),
-                  fit: BoxFit.fill,
+      ),
+      padding: EdgeInsets.all(12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 90.0,
+            width: width / 3.5,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/bike.jpg',
                 ),
+                fit: BoxFit.fill,
               ),
             ),
-            Container(
-              width: width / 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'BAJAJ',
-                            style: TextStyle(color: Colors.grey[700]),
-                          ),
-                          Text(
-                            'Pulsar NS 200',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        padding: EdgeInsets.all(12.0),
-                        child: Text(
-                          '\u20B9 300',
+          ),
+          Container(
+            width: width / 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'BAJAJ',
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                        Text(
+                          'Pulsar NS 200',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0)),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 6.0),
-                        child: Text(
-                          '1 Left',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(8.0)),
+                      padding: EdgeInsets.all(12.0),
+                      child: Text(
+                        '\u20B9 300',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                      Text(
-                        '171 free kms',
-                        style: TextStyle(color: Colors.grey[700]),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).accentColor,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      child: Text(
+                        '1 Left',
+                        style: TextStyle(
+                          color: Theme.of(context).accentColor,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '171 free kms',
+                      style: TextStyle(color: Colors.grey[700]),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

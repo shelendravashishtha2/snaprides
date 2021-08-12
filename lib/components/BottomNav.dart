@@ -35,40 +35,58 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: Stack(
+        children: [
+          Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: bottomNavBar,
+          ),
+        ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.green,
+    );
+  }
+
+  Widget get bottomNavBar {
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(
+          18,
+        ),
+        topLeft: Radius.circular(
+          18,
+        ),
+      ),
+      child: BottomNavigationBar(
+        showUnselectedLabels: true,
+        iconSize: 22,
+        selectedItemColor: Theme.of(context).primaryColor,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.sports_motorsports,
             ),
             label: 'Rent',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.electric_bike,
+              Icons.history,
             ),
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Text(
-              '\u20B9',
-              style: TextStyle(
-                color: _selectedIndex == 2
-                    ? Theme.of(context).primaryColor
-                    : Colors.black54,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
+            icon: Icon(
+              Icons.help,
             ),
             label: 'Help',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.location_pin,
+              Icons.more_horiz,
             ),
             label: 'More',
           ),

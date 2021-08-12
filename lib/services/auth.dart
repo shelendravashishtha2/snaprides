@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snaprides/components/BottomNav.dart';
+import 'package:snaprides/components/bottomNav.dart';
 import 'package:snaprides/screens/verifyOtp.dart';
 import 'package:snaprides/services/userDetails.dart';
 import 'package:google_sign_in/google_sign_in.dart';

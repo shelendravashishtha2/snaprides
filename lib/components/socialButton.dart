@@ -39,7 +39,7 @@ class SocialButton extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Theme.of(context).accentColor,
                   ),
                 ),
               ],

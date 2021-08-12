@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
-import 'package:snaprides/components/BottomNav.dart';
+import 'package:snaprides/components/bottomNav.dart';
 import 'package:snaprides/constants/constants.dart';
 import 'package:snaprides/screens/home.dart';
 import 'package:snaprides/services/auth.dart';
@@ -80,7 +80,7 @@ class _VerifyOTPState extends State<VerifyOTP> {
                   tag: 'login-header',
                   child: Center(
                     child: CircleAvatar(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Theme.of(context).accentColor,
                       radius: 60,
                       child: Icon(
                         Icons.lock,
@@ -156,7 +156,7 @@ class _VerifyOTPState extends State<VerifyOTP> {
                                 activeFillColor: Colors.white,
                                 selectedFillColor: Colors.white,
                                 selectedColor: Theme.of(context).primaryColor),
-                            cursorColor: Colors.black,
+                            cursorColor: Theme.of(context).accentColor,
                             animationDuration: Duration(milliseconds: 300),
                             enableActiveFill: true,
                             keyboardType: TextInputType.number,

@@ -26,7 +26,7 @@ class _SignUpLoginState extends State<SignUpLogin> {
           style: TextStyle(
             fontSize: showLogin ? 22 : 36,
             fontWeight: FontWeight.bold,
-            color: showLogin ? Colors.black45 : Colors.black,
+            color: showLogin ? Colors.black45 : Theme.of(context).accentColor,
           ),
         ),
       ),
@@ -49,7 +49,7 @@ class _SignUpLoginState extends State<SignUpLogin> {
           style: TextStyle(
             fontSize: showLogin ? 32 : 22,
             fontWeight: FontWeight.bold,
-            color: !showLogin ? Colors.black45 : Colors.black,
+            color: !showLogin ? Colors.black45 : Theme.of(context).accentColor,
           ),
         ),
       ),
@@ -123,7 +123,7 @@ class _SignUpLoginState extends State<SignUpLogin> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
-                        color: Colors.black,
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                   ),
