@@ -139,17 +139,32 @@ class HomeInactiveContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 90.0,
-              width: width / 3.5,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/bike.jpg',
+            Stack(
+              children: [
+                Container(
+                  height: 90.0,
+                  width: width / 3.5,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/bike.jpg',
+                      ),
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                  fit: BoxFit.fill,
                 ),
-              ),
+                Container(
+                  height: 90.0,
+                  width: width / 3.5,
+                  color: Color.fromRGBO(0, 0, 0, 0.4),
+                  child: Center(
+                      child: Transform.rotate(
+                    angle: 320.0,
+                    child:
+                        Text('SOLD OUT', style: TextStyle(color: Colors.white)),
+                  )),
+                )
+              ],
             ),
             Container(
               width: width / 1.8,
