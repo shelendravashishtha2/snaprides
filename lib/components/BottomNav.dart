@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:snaprides/screens/Profile.dart';
 import 'package:snaprides/screens/home.dart';
 
 class BottomNav extends StatefulWidget {
@@ -20,10 +22,7 @@ class _BottomNavState extends State<BottomNav> {
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    Profile()
   ];
 
   void _onItemTapped(int index) {
@@ -43,32 +42,21 @@ class _BottomNavState extends State<BottomNav> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.electric_bike,
             ),
             label: 'Rent',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.electric_bike,
-            ),
+            icon: Icon(Icons.history),
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Text(
-              '\u20B9',
-              style: TextStyle(
-                color: _selectedIndex == 2
-                    ? Theme.of(context).primaryColor
-                    : Colors.black54,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ),
+            icon: Icon(FontAwesomeIcons.lifeRing),
             label: 'Help',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.location_pin,
+              Icons.border_all_rounded,
             ),
             label: 'More',
           ),
