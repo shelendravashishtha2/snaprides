@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:snaprides/screens/SelectCities.dart';
+import 'package:provider/provider.dart';
+import 'package:snaprides/screens/selectCities.dart';
+import 'package:snaprides/screens/signup.dart';
 import 'package:snaprides/screens/signupLogin.dart';
 import 'package:snaprides/services/auth.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({
     Key key,
-    @required this.isAuthenticated,
     @required this.userDetails,
   }) : super(key: key);
 
-  final bool isAuthenticated;
   final Map userDetails;
 
   @override
   Widget build(BuildContext context) {
+    bool isAuthenticated =
+        Provider.of<Auth>(context, listen: false).isAuthenticated;
     return Drawer(
       child: SafeArea(
         child: Column(
@@ -24,7 +26,7 @@ class DrawerWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return SignUpLogin();
+                    return SignUp();
                   }));
                 },
                 contentPadding: EdgeInsets.all(
@@ -59,7 +61,9 @@ class DrawerWidget extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                  userDetails['name'],
+                  userDetails == null
+                      ? 'Profile'
+                      : userDetails['name'] ?? 'Profile',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -73,7 +77,7 @@ class DrawerWidget extends StatelessWidget {
                     await Auth().logout();
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => SignUpLogin(),
+                        builder: (context) => SignUp(),
                       ),
                     );
                   }),

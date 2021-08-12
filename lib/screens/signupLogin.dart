@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snaprides/screens/login.dart';
-import 'package:snaprides/screens/singup.dart';
+import 'package:snaprides/screens/signup.dart';
 
 class SignUpLogin extends StatefulWidget {
   @override

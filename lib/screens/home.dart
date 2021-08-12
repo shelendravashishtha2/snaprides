@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:snaprides/components/DrawerWidget.dart';
 import 'package:snaprides/components/HomePageContainer.dart';
 import 'package:snaprides/components/HomePageIcon.dart';
-import 'package:snaprides/screens/SelectCities.dart';
+import 'package:snaprides/screens/selectCities.dart';
 import 'package:snaprides/screens/login.dart';
 import 'package:snaprides/screens/signupLogin.dart';
 import 'package:snaprides/services/auth.dart';
@@ -34,8 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-          drawer: DrawerWidget(
-              isAuthenticated: isAuthenticated, userDetails: userDetails),
+          drawer: DrawerWidget(userDetails: userDetails),
           backgroundColor: Colors.black,
           body: SingleChildScrollView(
             child: Padding(

@@ -2,16 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snaprides/components/BottomNav.dart';
-import 'package:snaprides/constants/constants.dart';
 import 'package:snaprides/screens/home.dart';
 import 'package:snaprides/screens/login.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:snaprides/screens/signupLogin.dart';
-import 'package:snaprides/screens/singup.dart';
+import 'package:snaprides/screens/signup.dart';
 import 'package:snaprides/screens/splash.dart';
-import 'package:snaprides/screens/verifyOtp.dart';
 import 'package:snaprides/services/auth.dart';
 import 'package:snaprides/services/userDetails.dart';
+
+import 'screens/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +40,10 @@ class MyApp extends StatelessWidget {
                   builder: (context, snapshot) =>
                       snapshot.connectionState == ConnectionState.waiting
                           ? SplashScreen()
-                          : BottomNav()),
+                          : snapshot.data == false
+                              ? SignUp()
+                              : BottomNav(),
+                ),
           routes: {
             Login.routeName: (ctx) => Login(),
             HomeScreen.routeName: (ctx) => HomeScreen(),

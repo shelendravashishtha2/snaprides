@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
+import 'package:snaprides/components/BottomNav.dart';
 import 'package:snaprides/constants/constants.dart';
 import 'package:snaprides/screens/home.dart';
 import 'package:snaprides/services/auth.dart';
@@ -40,8 +41,13 @@ class _VerifyOTPState extends State<VerifyOTP> {
         userDetail: widget.userDetails,
         context: context,
       );
-      Navigator.popUntil(context, (route) => route.isFirst);
-      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      // Navigator.popUntil(context, (route) => route.isFirst);
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => BottomNav(),
+      //   ),
+      // );
     } catch (e) {
       Navigator.of(context).pop();
       showDialog(
