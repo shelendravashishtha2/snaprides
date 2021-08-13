@@ -1,7 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TimeRangeSelector extends StatefulWidget {
+  final DateTime startDate;
+  final DateTime endDate;
+  final int startTimeSlot;
+  final int endTimeSlot;
+
+  TimeRangeSelector(
+      this.startDate, this.endDate, this.startTimeSlot, this.endTimeSlot);
   @override
   _TimeRangeSelectorState createState() => _TimeRangeSelectorState();
 }
@@ -18,6 +26,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
     "06:00 PM",
     "07:00 PM",
   ];
+  final format = DateFormat('MMMd');
   int _selectedStartTimeSlot = 0;
   int _selectedEndTimeSlot = 0;
   bool selectingStartDate = true;
@@ -27,6 +36,14 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
     DateTime.now().month,
     DateTime.now().day + 1,
   );
+
+  void initState() {
+    _selectedStartDate = widget.startDate;
+    _selectedEndDate = widget.endDate;
+    _selectedStartTimeSlot = widget.startTimeSlot;
+    _selectedEndTimeSlot = widget.endTimeSlot;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +95,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                                 width: 3.0,
                               ),
                               Text(
-                                '10 Aug - 04:00 pm',
+                                '${format.format(_selectedStartDate)} - ${timeSlots[_selectedStartTimeSlot]}',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -122,7 +139,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                                 width: 3.0,
                               ),
                               Text(
-                                '10 Aug - 04:00 pm',
+                                '${format.format(_selectedEndDate)} - ${timeSlots[_selectedEndTimeSlot]}',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -144,7 +161,13 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   DateTime.now().month + 1,
                   DateTime.now().day,
                 ),
-                onDateChanged: (v) {},
+                onDateChanged: (v) {
+                  setState(() {
+                    selectingStartDate
+                        ? _selectedStartDate = v
+                        : _selectedEndDate = v;
+                  });
+                },
               ),
               Container(
                 height: 2,
@@ -164,7 +187,12 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   actionButton(selectingStartDate ? 'NEXT' : 'DONE', Icons.done,
                       () {
                     if (!selectingStartDate) {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop({
+                        'startDate': _selectedStartDate,
+                        'endDate': _selectedEndDate,
+                        'startTime': _selectedStartTimeSlot,
+                        'endTime': _selectedEndTimeSlot,
+                      });
                     }
                     if (selectingStartDate)
                       setState(() {

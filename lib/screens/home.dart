@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:snaprides/components/drawerWidget.dart';
 import 'package:snaprides/components/vehicleTile.dart';
 import 'package:snaprides/components/citySelectButton.dart';
-import 'package:snaprides/screens/selectCities.dart';
-import 'package:snaprides/screens/login.dart';
-import 'package:snaprides/screens/signupLogin.dart';
 import 'package:snaprides/screens/timeRangeSelector.dart';
 import 'package:snaprides/services/auth.dart';
 import 'package:snaprides/services/userDetails.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = 'home/';
@@ -21,12 +18,49 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isAuthenticated = false;
   Map userDetails;
+  List timeSlots = [
+    "11:00 AM",
+    "12:00 PM",
+    "01:00 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
+    "05:00 AM",
+    "06:00 PM",
+    "07:00 PM",
+  ];
+  final format = DateFormat('MMMd');
+  int _selectedStartTimeSlot = 0;
+  int _selectedEndTimeSlot = 0;
+  bool selectingStartDate = true;
+  DateTime _selectedStartDate = DateTime.now();
+  DateTime _selectedEndDate = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day + 1,
+  );
   void initState() {
     isAuthenticated = Provider.of<Auth>(context, listen: false).isAuthenticated;
     if (isAuthenticated)
       userDetails =
           Provider.of<UserDetails>(context, listen: false).userDetails;
     super.initState();
+  }
+
+  void selectTimeRange() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return TimeRangeSelector(_selectedStartDate, _selectedEndDate,
+          _selectedStartTimeSlot, _selectedEndTimeSlot);
+    })).then((value) {
+      if (value != null) {
+        setState(() {
+          _selectedStartDate = value['startDate'];
+          _selectedEndDate = value['endDate'];
+          _selectedStartTimeSlot = value['startTime'];
+          _selectedEndTimeSlot = value['endTime'];
+        });
+      }
+    });
   }
 
   @override
@@ -37,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
       color: Theme.of(context).accentColor,
       child: SafeArea(
         child: Scaffold(
-            drawer: DrawerWidget(userDetails: userDetails),
             backgroundColor: Theme.of(context).accentColor,
             body: SingleChildScrollView(
               child: Padding(
@@ -113,10 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return TimeRangeSelector();
-                                }));
+                                selectTimeRange();
                               },
                               child: Container(
                                 height: 45.0,
@@ -139,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 3.0,
                                     ),
                                     Text(
-                                      '10 Aug - 04:00 pm',
+                                      '${format.format(_selectedStartDate)} - ${timeSlots[_selectedStartTimeSlot]}',
                                       style: TextStyle(
                                         color: Colors.white,
                                       ),
@@ -172,41 +202,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 45.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF161616),
-                                border:
-                                    Border.all(color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.calendar_today_outlined,
-                                    color: Colors.grey[300],
-                                    size: 14.0,
-                                  ),
-                                  SizedBox(
-                                    width: 3.0,
-                                  ),
-                                  Text(
-                                    '10 Aug - 04:00 pm',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                            InkWell(
+                              onTap: () {
+                                selectTimeRange();
+                              },
+                              child: Container(
+                                height: 45.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF161616),
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today_outlined,
+                                      color: Colors.grey[300],
+                                      size: 14.0,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 3.0,
-                                  ),
-                                  Icon(
-                                    FontAwesomeIcons.angleDown,
-                                    color: Colors.white,
-                                    size: 14.0,
-                                  )
-                                ],
+                                    SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    Text(
+                                      '${format.format(_selectedEndDate)} - ${timeSlots[_selectedEndTimeSlot]}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    Icon(
+                                      FontAwesomeIcons.angleDown,
+                                      color: Colors.white,
+                                      size: 14.0,
+                                    )
+                                  ],
+                                ),
                               ),
                             )
                           ],

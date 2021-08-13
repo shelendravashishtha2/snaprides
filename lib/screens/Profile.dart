@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:snaprides/components/HomePageIcon.dart';
+import 'package:provider/provider.dart';
+import 'package:snaprides/components/citySelectButton.dart';
 import 'package:snaprides/constants/colorConstants.dart';
+import 'package:snaprides/screens/signup.dart';
+import 'package:snaprides/services/auth.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key key}) : super(key: key);
@@ -52,22 +55,23 @@ class _ProfileState extends State<Profile> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "SHELENDRA",
+                          "User",
                           style: TextStyle(
                               color: Colors.white, fontSize: height / 35),
                         ),
+                        // SizedBox(
+                        //   height: 3.0,
+                        // ),
+                        // Text(
+                        //   "Credit Balance",
+                        //   style: TextStyle(
+                        //       color: Colors.white, fontSize: height / 50),
+                        // ),
+
                         SizedBox(
-                          height: 3.0,
+                          height: 5.0,
                         ),
-                        Text(
-                          "Credit Balance",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: height / 50),
-                        ),
-                        SizedBox(
-                          height: 3.0,
-                        ),
-                        HomePageIcon(
+                        CitySelectButton(
                           height: 35.0,
                           labelText: 'Edit Profile',
                           padding: 8,
@@ -184,27 +188,38 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 8.0),
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.signOutAlt,
-                                color: Colors.grey[350],
-                              ),
-                              SizedBox(
-                                width: 8.0,
-                              ),
-                              Text(
-                                "Log Out",
-                                style: TextStyle(
+                      InkWell(
+                        onTap: () async {
+                          await Provider.of<Auth>(context, listen: false)
+                              .logout();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => SignUp(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 8.0),
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.signOutAlt,
                                   color: Colors.grey[350],
-                                  fontSize: 18.0,
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  width: 8.0,
+                                ),
+                                Text(
+                                  "Log Out",
+                                  style: TextStyle(
+                                    color: Colors.grey[350],
+                                    fontSize: 18.0,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

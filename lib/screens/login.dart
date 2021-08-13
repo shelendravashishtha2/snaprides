@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:snaprides/components/socialButton.dart';
 import 'package:snaprides/constants/constants.dart';
+import 'package:snaprides/screens/signup.dart';
 import 'package:snaprides/services/auth.dart';
 
 class Login extends StatefulWidget {
@@ -22,12 +23,12 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).accentColor,
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Theme.of(context).accentColor,
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
           child: Form(
             key: _formKey,
@@ -217,7 +218,7 @@ class _LoginState extends State<Login> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Login(),
+                              builder: (context) => SignUp(),
                             ),
                           );
                         },
